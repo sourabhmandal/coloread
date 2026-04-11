@@ -92,16 +92,15 @@ pytest tests/ -v
 coloread/
 ├── app/
 │   ├── main.py                  # FastAPI application
-│   ├── routers/
-│   │   └── pdf.py               # POST /api/v1/pdf/highlight endpoint
-│   ├── services/
-│   │   ├── pdf_extractor.py     # PDF → text via opendataloader-pdf
-│   │   ├── highlight_agent.py   # LangChain agent to identify highlights
-│   │   └── pdf_annotator.py     # Apply highlights via PyMuPDF
-│   └── models/
-│       └── schemas.py           # Pydantic schemas
+│   ├── assistant/
+│   │   └── highlight_agent.py               # Apply highlights via PyMuPDF
+│   ├── core/
+│   │   ├── router.py                        # CRUD API endpoint
+│   │   ├── pdf_extractor.py                 # LangChain agent to identify highlights
+│   │   └── pdf_annotator.py                 # Apply highlights via PyMuPDF
+│   │   └── schemas.py                       # pydantic schemas for strict typing
 ├── tests/
-│   └── test_pdf_router.py       # Pytest test suite
+│   └── test_pdf_router.py                   # Pytest test suite
 ├── requirements.txt
 ├── .env.example
 └── README.md

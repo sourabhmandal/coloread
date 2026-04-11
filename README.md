@@ -45,14 +45,12 @@ cp .env.example .env
 uvicorn app.main:app --reload
 ```
 
-The API will be available at `http://localhost:8000`.  
-Interactive docs (Swagger UI) are at `http://localhost:8000/docs`.
-
 ## API reference
+Interactive docs (Swagger UI) are at `http://localhost:8000/docs`.
 
 | Method | API | Description |
 |--------|----------|---------|
-| `POST` | `/api/v1/pdf/highlight` | send a pdf file and this api highlight important sections from the pdf |
+| `POST` | `/api/v1/assistant/highlight` | send a pdf file and this api highlight important sections from the pdf |
 
 ## Running tests
 

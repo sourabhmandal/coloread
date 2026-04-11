@@ -18,7 +18,7 @@ from app.assistant.highlight_agent import identify_highlights
 from app.core.pdf_annotator import apply_highlights
 from app.core.pdf_extractor import extract_text_from_pdf
 
-router = APIRouter(prefix="/pdf", tags=["pdf"])
+router = APIRouter(prefix="/assistant", tags=["Assistant"])
 
 _MAX_UPLOAD_BYTES = get_settings().max_upload_size_mb * 1024 * 1024
 

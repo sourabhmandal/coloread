@@ -13,7 +13,7 @@ from typing import Optional
 from langchain.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
-from app.config import get_settings
+from app.settings import get_settings
 
 # ---------------------------------------------------------------------------
 # Prompt

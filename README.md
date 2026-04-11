@@ -91,7 +91,7 @@ pytest tests/ -v
 ```
 coloread/
 ├── app/
-│   ├── main.py                  # FastAPI application
+│   ├── main.py                              # entrypoint
 │   ├── assistant/
 │   │   └── highlight_agent.py               # Apply highlights via PyMuPDF
 │   ├── core/

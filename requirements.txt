@@ -1,0 +1,10 @@
+fastapi==0.115.14
+uvicorn[standard]==0.34.0
+python-multipart==0.0.24
+python-dotenv==1.1.0
+opendataloader-pdf==2.2.1
+langchain==0.3.25
+langchain-openai==0.3.14
+pymupdf==1.25.5
+pydantic==2.11.3
+pydantic-settings==2.8.1

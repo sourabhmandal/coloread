@@ -49,7 +49,10 @@ The API will be available at `http://localhost:8000`.
 Interactive docs (Swagger UI) are at `http://localhost:8000/docs`.
 
 ## API reference
-### `POST /api/v1/pdf/highlight` - send a pdf file and this api highlight important sections from the pdf
+
+| Method | API | Description |
+|--------|----------|---------|
+| `POST` | `/api/v1/pdf/highlight` | send a pdf file and this api highlight important sections from the pdf |
 
 ## Running tests
 

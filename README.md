@@ -18,7 +18,7 @@ Read any book 5× faster with automated colorful highlighted texts.
 ## Requirements
 
 - Python 3.12+
-- An **Github Pat Token** (Support for other api keys will be added later)
+- An **Github PAT (Token)** (Support for other api keys will be added later)
 
 ## Setup
 
@@ -49,28 +49,7 @@ The API will be available at `http://localhost:8000`.
 Interactive docs (Swagger UI) are at `http://localhost:8000/docs`.
 
 ## API reference
-
-### `POST /api/v1/pdf/highlight`
-
-Upload a PDF and receive a highlighted version.
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `file` | `File` | The PDF file to process (`application/pdf`). |
-
-**Response:** `application/pdf` – the annotated PDF with yellow highlights.
-
-**Example (curl):**
-
-```bash
-curl -X POST http://localhost:8000/api/v1/pdf/highlight \
-  -F "file=@my_document.pdf" \
-  --output my_document_highlighted.pdf
-```
-
-### `GET /health`
-
-Returns `{"status": "ok"}` when the service is running.
+### `POST /api/v1/pdf/highlight` - send a pdf file and this api highlight important sections from the pdf
 
 ## Running tests
 

@@ -18,7 +18,7 @@ Read any book 5× faster with automated colorful highlighted texts.
 ## Requirements
 
 - Python 3.12+
-- An [OpenAI API key](https://platform.openai.com/api-keys)
+- An **Github Pat Token** (Support for other api keys will be added later)
 
 ## Setup
 

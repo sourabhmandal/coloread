@@ -13,10 +13,10 @@ from pathlib import Path
 from fastapi import APIRouter, HTTPException, UploadFile, status
 from fastapi.responses import FileResponse
 
-from app.config import get_settings
-from app.services.highlight_agent import identify_highlights
-from app.services.pdf_annotator import apply_highlights
-from app.services.pdf_extractor import extract_text_from_pdf
+from app.settings import get_settings
+from app.assistant.highlight_agent import identify_highlights
+from app.core.pdf_annotator import apply_highlights
+from app.core.pdf_extractor import extract_text_from_pdf
 
 router = APIRouter(prefix="/pdf", tags=["pdf"])
 

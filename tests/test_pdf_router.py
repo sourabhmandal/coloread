@@ -159,7 +159,7 @@ def test_highlight_pdf_file_too_large():
 
 def test_extract_text_from_pdf(tmp_path):
     """extract_text_from_pdf should return non-empty text for a real PDF."""
-    from app.services.pdf_extractor import extract_text_from_pdf
+    from app.core.pdf_extractor import extract_text_from_pdf
 
     pdf_bytes = _make_simple_pdf("Extractable text content for testing.")
     pdf_file = tmp_path / "sample.pdf"
@@ -176,7 +176,7 @@ def test_extract_text_from_pdf(tmp_path):
 
 def test_apply_highlights_creates_annotations(tmp_path):
     """apply_highlights should add highlight annotations to the PDF."""
-    from app.services.pdf_annotator import apply_highlights
+    from app.core.pdf_annotator import apply_highlights
 
     text = "This is the important sentence. And another one."
     pdf_bytes = _make_simple_pdf(text)
@@ -201,7 +201,7 @@ def test_apply_highlights_creates_annotations(tmp_path):
 
 def test_identify_highlights_no_key():
     """identify_highlights should raise RuntimeError when no API key is set."""
-    from app.services.highlight_agent import identify_highlights
+    from app.assistant.highlight_agent import identify_highlights
 
     with patch(
         "app.services.highlight_agent.get_settings",
@@ -213,7 +213,7 @@ def test_identify_highlights_no_key():
 
 def test_identify_highlights_bad_json():
     """identify_highlights should raise ValueError for non-JSON LLM responses."""
-    from app.services.highlight_agent import identify_highlights
+    from app.assistant.highlight_agent import identify_highlights
 
     mock_response = MagicMock()
     mock_response.content = "This is not JSON"
@@ -231,7 +231,7 @@ def test_identify_highlights_bad_json():
 
 def test_identify_highlights_success():
     """identify_highlights should return a deduplicated list of phrases."""
-    from app.services.highlight_agent import identify_highlights
+    from app.assistant.highlight_agent import identify_highlights
 
     mock_response = MagicMock()
     mock_response.content = '["Key phrase one.", "Key phrase two.", "Key phrase one."]'

@@ -1,9 +1,9 @@
-"""Coloread – FastAPI application entry point."""
+"""Coloread – application entry point."""
 
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
-from app.routers import pdf
+from app.core import router
 
 app = FastAPI(
     title="Coloread",
@@ -15,7 +15,7 @@ app = FastAPI(
     version="0.1.0",
 )
 
-app.include_router(pdf.router, prefix="/api/v1")
+app.include_router(router.router, prefix="/api/v1")
 
 
 @app.get("/health", tags=["health"])

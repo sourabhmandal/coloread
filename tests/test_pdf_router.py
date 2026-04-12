@@ -205,7 +205,7 @@ def test_identify_highlights_no_key():
 
     with patch(
         "app.services.highlight_agent.get_settings",
-        return_value=SimpleNamespace(github_token=None, openai_model="gpt-4o-mini"),
+        return_value=SimpleNamespace(openai_api_key=None, openai_model="gpt-4o-mini"),
     ):
         with pytest.raises(RuntimeError, match="OpenAI API key"):
             identify_highlights("Some text.", openai_api_key=None)

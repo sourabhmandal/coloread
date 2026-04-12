@@ -64,7 +64,6 @@ pytest tests/ -v
 |----------|---------|-------------|
 | `OPENAI_BASE_URL` | `http://127.0.0.1:8080/v1` | OpenAI-compatible chat completions endpoint base URL. |
 | `OPENAI_API_KEY` | *(optional)* | API key used by providers that require auth. |
-| `GITHUB_TOKEN` | *(optional)* | Legacy fallback key env var for compatibility. |
 | `OPENAI_MODEL` | `gemma-4-E2B-it-GGUF` | Model used by the highlight agent. |
 | `MAX_UPLOAD_SIZE_MB` | `20` | Maximum accepted PDF size in megabytes. |
 

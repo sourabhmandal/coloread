@@ -22,9 +22,6 @@ class Settings(BaseSettings):
     openai_base_url: str = "http://127.0.0.1:8080/v1"
     openai_api_key: Optional[SecretStr] = None
 
-    # Legacy fallback for older env files.
-    github_token: Optional[SecretStr] = None
-
     openai_model: str = "gemma-4-E2B-it-GGUF"
     max_upload_size_mb: int = Field(default=20, ge=1, le=200)
 
@@ -39,8 +36,6 @@ class Settings(BaseSettings):
         """Return a usable API key string for OpenAI-compatible backends."""
         if self.openai_api_key and self.openai_api_key.get_secret_value().strip():
             return self.openai_api_key.get_secret_value().strip()
-        if self.github_token and self.github_token.get_secret_value().strip():
-            return self.github_token.get_secret_value().strip()
         # Most local servers do not enforce auth, but the client expects a value.
         return "not-needed"
 

@@ -32,12 +32,12 @@ class Settings(BaseSettings):
         return v.rstrip("/")
 
     @property
-    def resolved_api_key(self) -> str:
+    def resolved_api_key(self) -> SecretStr:
         """Return a usable API key string for OpenAI-compatible backends."""
-        if self.openai_api_key and self.openai_api_key.get_secret_value().strip():
-            return self.openai_api_key.get_secret_value().strip()
-        # Most local servers do not enforce auth, but the client expects a value.
-        return "not-needed"
+        if self.openai_api_key:
+            openai_api_key = self.openai_api_key.get_secret_value().strip()
+            return SecretStr(openai_api_key)
+        return SecretStr("not-needed")
 
 
 @lru_cache(maxsize=1)

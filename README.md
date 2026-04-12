@@ -18,7 +18,7 @@ Read any book 5× faster with automated colorful highlighted texts.
 ## Requirements
 
 - Python 3.12+
-- An **Github PAT (Token)** (Support for other api keys will be added later)
+- An OpenAI-compatible LLM endpoint (default: `http://127.0.0.1:8080/v1`)
 
 ## Setup
 
@@ -36,7 +36,7 @@ pip install -r requirements.txt
 
 # 4. Configure environment variables
 cp .env.example .env
-# Edit .env and set your GITHUB_TOKEN
+# Edit .env and set OPENAI_BASE_URL / OPENAI_MODEL
 ```
 
 ## Running the server
@@ -62,8 +62,10 @@ pytest tests/ -v
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `GITHUB_TOKEN` | *(required)* | Your OpenAI API key. |
-| `OPENAI_MODEL` | `gpt-4o-mini` | OpenAI model used by the highlight agent. |
+| `OPENAI_BASE_URL` | `http://127.0.0.1:8080/v1` | OpenAI-compatible chat completions endpoint base URL. |
+| `OPENAI_API_KEY` | *(optional)* | API key used by providers that require auth. |
+| `GITHUB_TOKEN` | *(optional)* | Legacy fallback key env var for compatibility. |
+| `OPENAI_MODEL` | `gemma-4-E2B-it-GGUF` | Model used by the highlight agent. |
 | `MAX_UPLOAD_SIZE_MB` | `20` | Maximum accepted PDF size in megabytes. |
 
 ## Project structure

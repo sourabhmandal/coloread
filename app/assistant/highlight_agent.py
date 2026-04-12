@@ -57,17 +57,13 @@ _PROMPT = ChatPromptTemplate.from_messages(
 
 def identify_highlights(
     text: str,
-    openai_api_key: Optional[str] = None,
     model: Optional[str] = None,
 ) -> list[str]:
     """Use a LangChain LLM agent to identify phrases worth highlighting.
 
     Args:
         text: Plain-text content of the PDF.
-        openai_api_key: OpenAI API key.  Falls back to the ``GITHUB_TOKEN``
-            environment variable when not provided.
-        model: OpenAI model name.  Falls back to ``OPENAI_MODEL`` env var,
-            then to ``gpt-4o-mini``.
+        model: OpenAI-compatible model name. Falls back to ``OPENAI_MODEL``.
 
     Returns:
         A list of verbatim text phrases that should be highlighted.
@@ -75,7 +71,6 @@ def identify_highlights(
     Raises:
         ValueError: If the LLM returns a response that cannot be parsed as a
             JSON array of strings.
-        RuntimeError: If no OpenAI API key is available.
     """
     settings = get_settings()
 
@@ -83,15 +78,14 @@ def identify_highlights(
 
     llm = ChatOpenAI(
         model=model_name,
-        api_key=settings.github_token,
-        base_url="https://models.inference.ai.azure.com",
+        api_key=settings.openai_api_key,
+        base_url=str(settings.openai_base_url),
         temperature=0,
     )
 
     chain = _PROMPT | llm
 
     # Truncate very long documents to avoid exceeding context windows.
-    # gpt-4o-mini supports ~128k tokens; 200 k chars ≈ 50 k tokens (safe margin).
     max_chars = 200_000
     truncated_text = text[:max_chars]
 

@@ -11,7 +11,7 @@ import tempfile
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, UploadFile, status
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse, JSONResponse
 
 from app.settings import get_settings
 from app.assistant.highlight_agent import identify_highlights
@@ -35,16 +35,8 @@ _MAX_UPLOAD_BYTES = get_settings().max_upload_size_mb * 1024 * 1024
     },
 )
 async def highlight_pdf(file: UploadFile) -> FileResponse:
-    """Upload a PDF and receive a highlighted version back.
+    """Upload a PDF and receive a highlighted version back."""
 
-    The endpoint:
-    1. Reads the uploaded PDF.
-    2. Extracts its text content using **opendataloader-pdf**.
-    3. Sends the text to a **LangChain** agent that identifies the most
-       important phrases.
-    4. Applies yellow highlight annotations to those phrases using PyMuPDF.
-    5. Returns the annotated PDF as a file download.
-    """
     if file.content_type not in ("application/pdf", "application/octet-stream"):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,

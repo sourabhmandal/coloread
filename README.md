@@ -45,6 +45,13 @@ cp .env.example .env
 uvicorn app.main:app --reload
 ```
 
+## Running a Local LLM
+We use Gemma 4 2B model for development (gemma-4-E2B-it-Q4_K_M.gguf). Here is a example
+
+```bash
+./build/bin/llama-server -m ~/.lmstudio/models/lmstudio-community/gemma-4-E2B-it-GGUF/gemma-4-E2B-it-Q4_K_M.gguf -ngl 999 --port 8080
+```
+
 ## API reference
 Interactive docs (Swagger UI) are at `http://localhost:8000/docs`.
 

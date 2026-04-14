@@ -34,7 +34,6 @@ def extract_text_from_pdf(pdf_path: str) -> str:
             quiet=True,
         )
 
-        # opendataloader-pdf writes <filename>.txt in the output directory
         pdf_stem = Path(pdf_path).stem
         txt_file = Path(output_dir) / f"{pdf_stem}.txt"
 

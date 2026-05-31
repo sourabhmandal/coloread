@@ -23,6 +23,13 @@ router = APIRouter(prefix="/assistant", tags=["Assistant"])
 _MAX_UPLOAD_BYTES = get_settings().max_upload_size_mb * 1024 * 1024
 
 
+@router.get("/health", tags=["health"])
+async def health() -> dict[str, str]:
+    """Return a simple API health-check response."""
+
+    return {"status": "ok"}
+
+
 @router.post(
     "/highlight",
     summary="Ingest a PDF and return it with important text highlighted",

@@ -38,6 +38,12 @@ def test_health():
     assert response.json() == {"status": "ok"}
 
 
+def test_api_health():
+    response = client.get("/api/v1/assistant/health")
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok"}
+
+
 # ---------------------------------------------------------------------------
 # POST /api/v1/pdf/highlight
 # ---------------------------------------------------------------------------

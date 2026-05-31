@@ -11,7 +11,7 @@ import tempfile
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException, UploadFile, status
-from fastapi.responses import FileResponse, JSONResponse, JSONResponse
+from fastapi.responses import FileResponse
 
 from app.settings import get_settings
 from app.assistant.highlight_agent import identify_highlights

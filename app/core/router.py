@@ -2,9 +2,10 @@
 
 Endpoint
 --------
-POST /api/v1/pdf/highlight
-    Accept a PDF file upload, run the agentic highlight workflow, and return
-    an annotated PDF file with the important passages highlighted in yellow.
+POST /api/v1/assistant/highlight
+    Accept a PDF file upload, run deterministic keyphrase extraction, and
+    return an annotated PDF file with the important passages highlighted in
+    yellow.
 """
 
 import tempfile

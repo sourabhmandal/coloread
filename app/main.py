@@ -10,7 +10,7 @@ app = FastAPI(
     description=(
         "Read any book 5× faster with automated colorful highlighted texts. "
         "Upload a PDF and receive a version with the most important passages "
-        "highlighted by an AI agent."
+        "highlighted by deterministic keyphrase extraction."
     ),
     version="0.1.0",
 )

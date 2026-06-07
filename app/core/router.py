@@ -2,9 +2,10 @@
 
 Endpoint
 --------
-POST /api/v1/pdf/highlight
-    Accept a PDF file upload, run the agentic highlight workflow, and return
-    an annotated PDF file with the important passages highlighted in yellow.
+POST /api/v1/assistant/highlight
+    Accept a PDF file upload, run deterministic keyphrase extraction, and
+    return an annotated PDF file with the important passages highlighted in
+    yellow.
 """
 
 import tempfile
@@ -23,6 +24,13 @@ router = APIRouter(prefix="/assistant", tags=["Assistant"])
 _MAX_UPLOAD_BYTES = get_settings().max_upload_size_mb * 1024 * 1024
 
 
+@router.get("/health", tags=["health"])
+async def health() -> dict[str, str]:
+    """Return a simple API health-check response."""
+
+    return {"status": "ok"}
+
+
 @router.post(
     "/highlight",
     summary="Ingest a PDF and return it with important text highlighted",
@@ -35,16 +43,8 @@ _MAX_UPLOAD_BYTES = get_settings().max_upload_size_mb * 1024 * 1024
     },
 )
 async def highlight_pdf(file: UploadFile) -> FileResponse:
-    """Upload a PDF and receive a highlighted version back.
+    """Upload a PDF and receive a highlighted version back."""
 
-    The endpoint:
-    1. Reads the uploaded PDF.
-    2. Extracts its text content using **opendataloader-pdf**.
-    3. Sends the text to a **LangChain** agent that identifies the most
-       important phrases.
-    4. Applies yellow highlight annotations to those phrases using PyMuPDF.
-    5. Returns the annotated PDF as a file download.
-    """
     if file.content_type not in ("application/pdf", "application/octet-stream"):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,

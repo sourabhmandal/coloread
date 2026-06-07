@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "sh .github/hooks/scripts/python_sanity_check.sh",
+        "timeout": 5
+      }
+    ]
+  }
+}

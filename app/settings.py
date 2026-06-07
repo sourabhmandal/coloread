@@ -2,9 +2,9 @@
 
 from functools import lru_cache
 from pathlib import Path
-from typing import Literal
+from typing import Optional
 
-from pydantic import Field, SecretStr, field_validator, model_validator
+from pydantic import Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -18,29 +18,26 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    # Required secret
-    github_token: SecretStr
+    # Local or remote OpenAI-compatible server settings.
+    openai_base_url: str = "http://127.0.0.1:8080/v1"
+    openai_api_key: Optional[SecretStr] = None
 
-    # Constrained values
-    openai_model: Literal["gpt-4o-mini", "gpt-4.1-mini"] = "gpt-4o-mini"
+    openai_model: str = "gemma-4-E2B-it-GGUF"
     max_upload_size_mb: int = Field(default=20, ge=1, le=200)
 
-    @field_validator("github_token")
+    @field_validator("openai_base_url", mode="before")
     @classmethod
-    def validate_github_token(cls, v: SecretStr) -> SecretStr:
-        token = v.get_secret_value().strip()
-        if not token:
-            raise ValueError("GITHUB_TOKEN cannot be empty")
-        if not (token.startswith("ghp_") or token.startswith("github_pat_")):
-            raise ValueError("GITHUB_TOKEN format looks invalid")
-        return v
+    def normalize_base_url(cls, v: str) -> str:
+        # Keep URL normalized for clients that are sensitive to trailing slashes.
+        return v.rstrip("/")
 
-    @model_validator(mode="after")
-    def validate_settings_combination(self):
-        # Example cross-field rule
-        if self.openai_model == "gpt-4.1-mini" and self.max_upload_size_mb > 100:
-            raise ValueError("MAX_UPLOAD_SIZE_MB must be <= 100 for gpt-4.1-mini")
-        return self
+    @property
+    def resolved_api_key(self) -> SecretStr:
+        """Return a usable API key string for OpenAI-compatible backends."""
+        if self.openai_api_key:
+            openai_api_key = self.openai_api_key.get_secret_value().strip()
+            return SecretStr(openai_api_key)
+        return SecretStr("not-needed")
 
 
 @lru_cache(maxsize=1)
